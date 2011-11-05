@@ -2,8 +2,10 @@ var canvas;
 
 $(document).ready(function() {
 	canvas = document.getElementById('main-surface');
+	
 	var gameDesk = new GameDesk();
 	gameDesk.drawDesk();
+	$(document).click(gameDesk.handleClick);
 });
 
 /** GAME DESK **/
@@ -31,6 +33,10 @@ GameDesk.prototype.drawDesk = function() {
 		y += this.tileSize + 2;
 		x = this.startPos;
 	}
+}
+
+GameDesk.prototype.handleClick = function(e) {
+	// TODO
 }
 
 /** RECTANGLE **/
