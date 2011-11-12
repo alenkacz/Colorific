@@ -1,3 +1,6 @@
+// TODO on start give random colors
+// find tiles with same color nearby
+
 var canvas;
 var gameDesk;
 
@@ -76,7 +79,7 @@ GameDesk.prototype.getTilePosition = function(x) {
 }
 
 GameDesk.prototype.handleTileClick = function(row,side) {
-	this.desk[row][side].color = "ff0000";
+	this.desk[row][side].color = "fff";
 	gameDesk.repaint();
 }
 
