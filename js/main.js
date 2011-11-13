@@ -34,7 +34,6 @@ GameDesk.prototype.initDesk = function() {
 	for(var i = 0; i < this.deskSize; i++) {
 		for(var j = 0; j < this.deskSize; j++) {
 			this.desk[i][j] = new Rectangle(x,y, this.tileSize);
-			console.log(cGen.getRandomColor());
 			this.desk[i][j].color = cGen.getRandomColor();
 			x += this.tileSize + this.spaceSize;
 		}
@@ -84,7 +83,7 @@ GameDesk.prototype.getTilePosition = function(x) {
 
 GameDesk.prototype.handleTileClick = function(row,side) {
 	this.desk[row][side].color = "#fff";
-	findMatchNext(x,y);
+	gameDesk.findMatchNext(row,side);
 	gameDesk.repaint();
 };
 
