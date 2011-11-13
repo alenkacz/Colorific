@@ -1,5 +1,6 @@
 // TODO
-// falling tiles when space is open
+// debug falling tiles down - not proper behavior when more tiles one under another
+// are removed
 
 var canvas;
 var gameDesk;
@@ -163,9 +164,9 @@ GameDesk.prototype.tilesFallDown = function(arr) {
 		for(var j = arr[i].posY; j > -1; j--) { // for all tiles above this one
 			var tile = this.desk[j][arr[i].posX];
 			if(tile.visible) {
+				var newTile = gameDesk.moveTileDown(tile);
+				this.desk[newTile.posY][newTile.posX] = newTile;
 				this.desk[j][arr[i].posX].visible = false;
-				
-				this.desk[j+1][arr[i].posX] = gameDesk.moveTileDown(tile);
 			}
 		}
 	}
@@ -177,15 +178,35 @@ GameDesk.prototype.tilesFallDown = function(arr) {
  * @returns {___result0} new tile with proper coordinates and other attributes
  */
 GameDesk.prototype.moveTileDown = function(tile) {
-	var result = new Rectangle(tile.x,tile.y+this.tileSize+this.spaceSize, this.tileSize);
+	var newY = gameDesk.countFallenTileY(tile.posX, tile.posY);
+	var result = new Rectangle(tile.x, newY, this.tileSize);
 	
 	result.posX = tile.posX;
-	result.posY = tile.posY+1;
+	result.posY = gameDesk.countFallenTileRowIndex(tile.posX,tile.posY);
 	
 	result.color = tile.color;
 	
 	return result;
-}
+};
+
+GameDesk.prototype.countFallenTileY = function(side, row) {
+	var tileRow = row;
+	while(!this.desk[tileRow][side].visible) {
+		console.log(tileRow);
+		tileRow--;
+	}
+	
+	return this.desk[tileRow+1][side].y;
+};
+
+GameDesk.prototype.countFallenTileRowIndex = function(side, row) {
+	var tileRow = row;
+	while(!this.desk[tileRow][side].visible) {
+		tileRow--;
+	}
+	
+	return this.desk[tileRow+1][side].posY;
+};
 
 GameDesk.prototype.handleClick = function(e) {
 	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
