@@ -1,5 +1,4 @@
 // TODO
-// find tiles with same color nearby
 // falling tiles when space is open
 
 var canvas;
@@ -21,6 +20,10 @@ function GameDesk() {
 	this.spaceSize = 2;
 	this.deskSize = 15;
 	this.startPos = 50;
+	
+	this.posX = 0;
+	this.posY = 0;
+	
 	this.desk = new Array(this.deskSize);
 	
 	for(var i=0; i <this.deskSize; i++) {
@@ -34,6 +37,10 @@ GameDesk.prototype.initDesk = function() {
 	for(var i = 0; i < this.deskSize; i++) {
 		for(var j = 0; j < this.deskSize; j++) {
 			this.desk[i][j] = new Rectangle(x,y, this.tileSize);
+			
+			this.desk[i][j].posX = j;
+			this.desk[i][j].posY = i;
+			
 			this.desk[i][j].color = cGen.getRandomColor();
 			x += this.tileSize + this.spaceSize;
 		}
@@ -45,7 +52,9 @@ GameDesk.prototype.initDesk = function() {
 GameDesk.prototype.drawDesk = function() {
 	for(var i = 0; i < this.deskSize; i++) {
 		for(var j = 0; j < this.deskSize; j++) {
-			this.desk[i][j].draw();
+			if(this.desk[i][j].visible) {
+				this.desk[i][j].draw();
+			}
 		}
 	}
 };
@@ -81,9 +90,20 @@ GameDesk.prototype.getTilePosition = function(x) {
 	return parseInt(pos / (this.tileSize + this.spaceSize/2));
 };
 
+/**
+ * Tile was clicked - handles all work containing deactivating 
+ * this tile and all neighbors with the same color, moving the ones above
+ * and repainting the whole screen
+ * 
+ * @param row y coordinate
+ * @param side x coordinate
+ */
 GameDesk.prototype.handleTileClick = function(row,side) {
 	var color = this.desk[row][side].color;
+	
 	gameDesk.exploreNeighborsAndFindMatch(row,side,color);
+	gameDesk.moveHangingTiles();
+	
 	gameDesk.repaint();
 };
 
@@ -93,12 +113,17 @@ GameDesk.prototype.handleTileClick = function(row,side) {
  * @param side y coordinate
  */
 GameDesk.prototype.hideTile = function(row,side) {
-	this.desk[row][side].color = "#fff";
 	this.desk[row][side].visible = false;
 }
 
+/**
+ * Recursively calls looking for neighbors of the same color and hiding them
+ * @param row x coordinate
+ * @param side y coordinate
+ * @param color color of the element that was clicked
+ */
 GameDesk.prototype.exploreNeighborsAndFindMatch = function(row,side,color) {
-	if(this.desk[row][side].color == color) {
+	if(this.desk[row][side].color == color && this.desk[row][side].visible) {
 		// matches!
 		gameDesk.hideTile(row,side);
 		
@@ -108,6 +133,58 @@ GameDesk.prototype.exploreNeighborsAndFindMatch = function(row,side,color) {
 		if(row > 0) gameDesk.exploreNeighborsAndFindMatch(row-1,side,color); //top
 		if(row < (this.deskSize-1)) gameDesk.exploreNeighborsAndFindMatch(row+1,side,color); //bottom
 	}
+};
+
+/**
+ * Finds all tiles that are right above a hole and need to fall down
+ */
+GameDesk.prototype.moveHangingTiles = function() {
+	var result = new Array();
+	var counter = 0;
+	for(var i = this.deskSize-2; i > -1; i--) { // second row from bottom
+		for(var j = 0; j < this.deskSize; j++) {
+			if(!this.desk[i+1][j].visible && this.desk[i][j].visible) {
+				// need to fall down
+				result[counter++] = this.desk[i][j];
+			}
+		}
+	}
+	
+	// now we have list of all rectangles that needs to fall down
+	gameDesk.tilesFallDown(result);
+};
+
+/**
+ * Processes all tiles that are moving down after this click
+ * @param arr all tiles that have a non visible tile under them
+ */
+GameDesk.prototype.tilesFallDown = function(arr) {
+	for(var i = 0; i < arr.length; i++) {
+		for(var j = arr[i].posY; j > -1; j--) { // for all tiles above this one
+			var tile = this.desk[j][arr[i].posX];
+			if(tile.visible) {
+				this.desk[j][arr[i].posX].visible = false;
+				
+				this.desk[j+1][arr[i].posX] = gameDesk.moveTileDown(tile);
+			}
+		}
+	}
+};
+
+/**
+ * Creates a new tile from a given tile that is placed one row below the original one
+ * @param tile original tile
+ * @returns {___result0} new tile with proper coordinates and other attributes
+ */
+GameDesk.prototype.moveTileDown = function(tile) {
+	var result = new Rectangle(tile.x,tile.y+this.tileSize+this.spaceSize, this.tileSize);
+	
+	result.posX = tile.posX;
+	result.posY = tile.posY+1;
+	
+	result.color = tile.color;
+	
+	return result;
 }
 
 GameDesk.prototype.handleClick = function(e) {
