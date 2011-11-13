@@ -1,5 +1,6 @@
 // TODO on start give random colors
 // find tiles with same color nearby
+// onclick does not work everywhere
 
 var canvas;
 var gameDesk;
@@ -16,16 +17,16 @@ $(document).ready(function() {
 /** GAME DESK **/
 
 function GameDesk() {
-	this.tileSize = 50;
+	this.tileSize = 30;
 	this.spaceSize = 2;
-	this.deskSize = 10;
+	this.deskSize = 15;
 	this.startPos = 50;
 	this.desk = new Array(this.deskSize);
 	
 	for(var i=0; i <this.deskSize; i++) {
 		this.desk[i] = new Array(this.deskSize);
 	}
-}
+};
 
 GameDesk.prototype.initDesk = function() {
 	var x = this.startPos, y = this.startPos;
@@ -37,7 +38,7 @@ GameDesk.prototype.initDesk = function() {
 		y += this.tileSize + this.spaceSize;
 		x = this.startPos;
 	}
-}
+};
 
 GameDesk.prototype.drawDesk = function() {
 	for(var i = 0; i < this.deskSize; i++) {
@@ -45,13 +46,13 @@ GameDesk.prototype.drawDesk = function() {
 			this.desk[i][j].draw();
 		}
 	}
-}
+};
 
 GameDesk.prototype.repaint = function() {
 	var ctx = canvas.getContext('2d');
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	gameDesk.drawDesk();
-}
+};
 
 /**
  * Determines whether the given x,y position is inside the gamedesk
@@ -66,7 +67,7 @@ GameDesk.prototype.isInsideDesk = function(x,y) {
 	}
 	
 	return false;
-}
+};
 
 /**
  * Returns position of the tile inside the gamedesk
@@ -74,14 +75,14 @@ GameDesk.prototype.isInsideDesk = function(x,y) {
  * @returns {Number} position of the tile
  */
 GameDesk.prototype.getTilePosition = function(x) {
-	var pos = x - this.startPos;
+	var pos = x - this.startPos - 10;
 	return parseInt(pos / (this.tileSize + this.spaceSize/2));
-}
+};
 
 GameDesk.prototype.handleTileClick = function(row,side) {
-	this.desk[row][side].color = "fff";
+	this.desk[row][side].color = "#fff";
 	gameDesk.repaint();
-}
+};
 
 GameDesk.prototype.handleClick = function(e) {
 	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
@@ -90,7 +91,7 @@ GameDesk.prototype.handleClick = function(e) {
 		
 		gameDesk.handleTileClick(row,side);
 	}
-}
+};
 
 /** RECTANGLE **/
 
