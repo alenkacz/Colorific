@@ -1,6 +1,6 @@
-// TODO on start give random colors
+// TODO
 // find tiles with same color nearby
-// onclick does not work everywhere
+// falling tiles when space is open
 
 var canvas;
 var gameDesk;
@@ -29,10 +29,13 @@ function GameDesk() {
 };
 
 GameDesk.prototype.initDesk = function() {
+	var cGen = new ColorGenerator();
 	var x = this.startPos, y = this.startPos;
 	for(var i = 0; i < this.deskSize; i++) {
 		for(var j = 0; j < this.deskSize; j++) {
 			this.desk[i][j] = new Rectangle(x,y, this.tileSize);
+			console.log(cGen.getRandomColor());
+			this.desk[i][j].color = cGen.getRandomColor();
 			x += this.tileSize + this.spaceSize;
 		}
 		y += this.tileSize + this.spaceSize;
@@ -81,8 +84,23 @@ GameDesk.prototype.getTilePosition = function(x) {
 
 GameDesk.prototype.handleTileClick = function(row,side) {
 	this.desk[row][side].color = "#fff";
+	findMatchNext(x,y);
 	gameDesk.repaint();
 };
+
+/**
+ * Changes the visibility of given tile
+ * @param row x coordinate
+ * @param side y coordinate
+ */
+GameDesk.prototype.hideTile = function(row,side) {
+	this.desk[row][side].color = "#fff";
+	this.desk[row][side].visible = false;
+}
+
+GameDesk.prototype.findMatchNext = function() {
+	// TODO look for the same colored 
+}
 
 GameDesk.prototype.handleClick = function(e) {
 	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
@@ -100,10 +118,28 @@ function Rectangle(x,y, tileSize) {
 	this.y = y;
 	this.tileSize = tileSize;
 	this.color = "#000";
+	this.visible = true;
 }
 
 Rectangle.prototype.draw = function() {
 	var ctx = canvas.getContext('2d'); 
 	ctx.fillStyle = this.color;
 	ctx.fillRect(this.x,this.y,this.tileSize,this.tileSize);
+};
+
+/** COLOR GENERATOR **/
+
+/**
+ * Class responsible for random color generation for tiles
+ */
+function ColorGenerator() {
+	this.colors = ["#e62e2e","#2a9e13","#1122db","#ffaa00"];
 }
+
+/**
+ * Returns random number from a provided array of numbers
+ * @returns string containing a hexa color
+ */
+ColorGenerator.prototype.getRandomColor = function() {
+	return this.colors[Math.floor(Math.random()*4)];
+};
