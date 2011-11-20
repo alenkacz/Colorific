@@ -1,5 +1,6 @@
 // TODO
-// bug with tiles on the bottom of the screen, on the right
+// tile can be removed only when there are two of the same color
+// when space left on the x, the remaining tiles should slide there
 
 var canvas;
 var gameDesk;
@@ -159,6 +160,7 @@ GameDesk.prototype.moveHangingTiles = function() {
  * @param arr all tiles that have a non visible tile under them
  */
 GameDesk.prototype.tilesFallDown = function(arr) {
+	console.log(arr);
 	for(var i = 0; i < arr.length; i++) {
 		for(var j = arr[i].posY; j > -1; j--) { // for all tiles above this one
 			var tile = this.desk[j][arr[i].posX];
@@ -190,9 +192,12 @@ GameDesk.prototype.moveTileDown = function(tile) {
 
 GameDesk.prototype.countFallenTileY = function(side, row) {
 	var tileRow = row+1;
-	if(tileRow >= (this.deskSize-1)) return tileRow;
+	if(tileRow >= this.deskSize) return tileRow;
+	
 	while(!this.desk[tileRow][side].visible) {
-		tileRow++;
+		if(++tileRow >= this.deskSize) {
+			break;
+		}
 	}
 	
 	return this.desk[tileRow-1][side].y;
@@ -200,9 +205,12 @@ GameDesk.prototype.countFallenTileY = function(side, row) {
 
 GameDesk.prototype.countFallenTileRowIndex = function(side, row) {	
 	var tileRow = row+1;
-	if(tileRow >= (this.deskSize-1)) return tileRow;
+	if(tileRow >= this.deskSize) return tileRow;
+	
 	while(!this.desk[tileRow][side].visible) {
-		tileRow++;
+		if(++tileRow >= this.deskSize) {
+			break;
+		}
 	}
 	
 	return (tileRow-1);
@@ -212,7 +220,6 @@ GameDesk.prototype.handleClick = function(e) {
 	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
 		var side = gameDesk.getTilePosition(e.clientX);
 		var row = gameDesk.getTilePosition(e.clientY);
-		
 		gameDesk.handleTileClick(row,side);
 	}
 };
