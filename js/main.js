@@ -1,6 +1,7 @@
 // TODO
-// tile can be removed only when there are two of the same color
 // when space left on the x, the remaining tiles should slide there
+// restart button
+// timer
 
 var canvas;
 var gameDesk;
@@ -102,10 +103,20 @@ GameDesk.prototype.getTilePosition = function(x) {
 GameDesk.prototype.handleTileClick = function(row,side) {
 	var color = this.desk[row][side].color;
 	
-	gameDesk.exploreNeighborsAndFindMatch(row,side,color);
-	gameDesk.moveHangingTiles();
+	if(gameDesk.isValidTileClick(row,side,color)) {
+		gameDesk.exploreNeighborsAndFindMatch(row,side,color);
+		gameDesk.moveHangingTiles();
+	
+		gameDesk.repaint();
+	}
+};
 
-	gameDesk.repaint();
+GameDesk.prototype.handleClick = function(e) {
+	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
+		var side = gameDesk.getTilePosition(e.clientX);
+		var row = gameDesk.getTilePosition(e.clientY);
+		gameDesk.handleTileClick(row,side);
+	}
 };
 
 /**
@@ -115,7 +126,43 @@ GameDesk.prototype.handleTileClick = function(row,side) {
  */
 GameDesk.prototype.hideTile = function(row,side) {
 	this.desk[row][side].visible = false;
-}
+};
+
+/**
+ * Checks all four neighbors of the tile to see if there is any color match
+ * @param row y coordinate
+ * @param side x coordinate
+ * @param color color we are looking for
+ * @returns {Boolean} true if at least one neighbor matches the color
+ */
+GameDesk.prototype.isValidTileClick = function(row, side, color) {
+	var left = gameDesk.doesColorMatch(row,side-1,color);
+	var right = gameDesk.doesColorMatch(row,side+1,color);
+	var bottom = gameDesk.doesColorMatch(row+1,side,color);
+	var top = gameDesk.doesColorMatch(row-1,side,color);
+	
+	return (left|| right || bottom || top);
+};
+
+/**
+ * Checks tile on the given coordinate if it matches the given color
+ * @param row y coordinate
+ * @param side x coordinate
+ * @param color color we are looking for
+ * @returns {Boolean} true if the color matches
+ */
+GameDesk.prototype.doesColorMatch = function(row, side, color) {
+	console.log("looking for:" + color);
+	if(row >= this.deskSize || side >= this.deskSize || side < 0 || row < 0) {
+		return false;
+	}
+
+	if(this.desk[row][side].color == color) {
+		return true;
+	}
+	
+	return false;
+};
 
 /**
  * Recursively calls looking for neighbors of the same color and hiding them
@@ -217,14 +264,6 @@ GameDesk.prototype.countFallenTileRowIndex = function(side, row) {
 	}
 	
 	return (tileRow-1);
-};
-
-GameDesk.prototype.handleClick = function(e) {
-	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
-		var side = gameDesk.getTilePosition(e.clientX);
-		var row = gameDesk.getTilePosition(e.clientY);
-		gameDesk.handleTileClick(row,side);
-	}
 };
 
 /** RECTANGLE **/
