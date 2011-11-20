@@ -179,30 +179,33 @@ GameDesk.prototype.tilesFallDown = function(arr) {
  * @returns {___result0} new tile with proper coordinates and other attributes
  */
 GameDesk.prototype.moveTileDown = function(tile) {
-	var newY = gameDesk.countFallenTileY(tile.posX, tile.posY);
-	var result = new Rectangle(tile.x, newY, this.tileSize);
+	var newPosY = gameDesk.countFallenTileRowIndex(tile.posX,tile.posY);
+	var newY = gameDesk.getYFromPosition(newPosY);
 	
+	var result = new Rectangle(tile.x, newY, this.tileSize);
 	result.posX = tile.posX;
-	result.posY = gameDesk.countFallenTileRowIndex(tile.posX,tile.posY);
+	result.posY = newPosY;
 	
 	result.color = tile.color;
 	
 	return result;
 };
 
-GameDesk.prototype.countFallenTileY = function(side, row) {
-	var tileRow = row+1;
-	if(tileRow >= this.deskSize) return tileRow;
-	
-	while(!this.desk[tileRow][side].visible) {
-		if(++tileRow >= this.deskSize) {
-			break;
-		}
-	}
-	
-	return this.desk[tileRow-1][side].y;
+/**
+ * Counts position of the tile which is on the given row on the desk
+ * @param row row number
+ * @returns {Number} Y position used for drawing that tile
+ */
+GameDesk.prototype.getYFromPosition = function(row) {
+	return (row*this.tileSize+row*this.spaceSize+this.startPos);
 };
 
+/**
+ * Computes row index of the tile after it has fallen down
+ * @param side y coordinate
+ * @param row x coordinate
+ * @returns position on the gamedesk
+ */
 GameDesk.prototype.countFallenTileRowIndex = function(side, row) {	
 	var tileRow = row+1;
 	if(tileRow >= this.deskSize) return tileRow;
