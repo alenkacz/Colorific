@@ -1,18 +1,19 @@
 // TODO
+// todo game loop with endGame checking in Game class
 // detection that game ended - no two tiles of same color next to each other
 // restart button
 // timer
 
 var canvas;
 var gameDesk;
+var game;
 
 $(document).ready(function() {
 	canvas = document.getElementById('main-surface');
 	
 	gameDesk = new GameDesk();
-	gameDesk.initDesk();
-	gameDesk.drawDesk();
-	$(document).click(gameDesk.handleClick);
+	game = new Game(gameDesk);
+	game.start();
 });
 
 /** RECTANGLE **/

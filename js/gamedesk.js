@@ -366,3 +366,7 @@ GameDesk.prototype.countFallenTileRowIndex = function(side, row) {
 	
 	return (tileRow-1);
 };
+
+GameDesk.prototype.isAnyMoveLeft = function() {
+	
+}

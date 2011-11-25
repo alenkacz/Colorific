@@ -1,0 +1,14 @@
+#left-panel {
+	position:absolute;
+	left:510px;
+	top:70px;
+}
+
+#timer {
+	color:red;
+	font-size:26px;
+}
+
+button {
+	margin-top:20px;
+}
