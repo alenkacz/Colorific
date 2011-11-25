@@ -1,6 +1,5 @@
 // TODO
-// problem when two spaces nex to each other occurs
-// problem with first column removed - size from 15 to 12
+// detection that game ended - no two tiles of same color next to each other
 // restart button
 // timer
 
@@ -276,7 +275,7 @@ GameDesk.prototype.shiftEmptyColumns = function(arr) {
 GameDesk.prototype.getNumberOfColumnsEmpty = function(column) {
 	var count = 1;
 	for(var i = column-1; i > 0; i--) {
-		if(this.desk[i][column].visible) {
+		if(gameDesk.isColumnEmpty(i)) {
 			++count;
 		}
 	}
