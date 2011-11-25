@@ -1,5 +1,5 @@
 // TODO
-// when space left on the x, the remaining tiles should slide there
+// when space left on the x, the remaining tiles should slide there - look for empty column
 // restart button
 // timer
 
@@ -105,7 +105,8 @@ GameDesk.prototype.handleTileClick = function(row,side) {
 	
 	if(gameDesk.isValidTileClick(row,side,color)) {
 		gameDesk.exploreNeighborsAndFindMatch(row,side,color);
-		gameDesk.moveHangingTiles();
+		gameDesk.moveHangingTilesVertical();
+		gameDesk.moveHangingTilesHorizontal();
 	
 		gameDesk.repaint();
 	}
@@ -152,7 +153,6 @@ GameDesk.prototype.isValidTileClick = function(row, side, color) {
  * @returns {Boolean} true if the color matches
  */
 GameDesk.prototype.doesColorMatch = function(row, side, color) {
-	console.log("looking for:" + color);
 	if(row >= this.deskSize || side >= this.deskSize || side < 0 || row < 0) {
 		return false;
 	}
@@ -186,7 +186,7 @@ GameDesk.prototype.exploreNeighborsAndFindMatch = function(row,side,color) {
 /**
  * Finds all tiles that are right above a hole and need to fall down
  */
-GameDesk.prototype.moveHangingTiles = function() {
+GameDesk.prototype.moveHangingTilesVertical = function() {
 	var result = new Array();
 	var counter = 0;
 	for(var i = this.deskSize-2; i > -1; i--) { // second row from bottom
@@ -200,6 +200,56 @@ GameDesk.prototype.moveHangingTiles = function() {
 
 	// now we have list of all rectangles that needs to fall down
 	gameDesk.tilesFallDown(result);
+};
+
+/**
+ * Finds all columns that are completely empty
+ */
+GameDesk.prototype.moveHangingTilesHorizontal = function() {
+	var result = new Array();
+	var counter = 0;
+	for(var i = 0; i < (this.deskSize-1); i++) { // not interested in the last right column
+		if(gameDesk.isColumnEmpty(i)) {
+			var column = gameDesk.getMostRightJoinedEmptyColumn(i);
+			if(column != -1) {
+				result[counter++] = column;
+				i = column; // skip the columns in this iteration
+			}
+		}
+	}
+	
+	console.log(result);
+};
+
+/**
+ * Returns true if column is empty
+ */
+GameDesk.prototype.isColumnEmpty = function(column) {
+	for(var j = 0; j < this.deskSize; j++) {
+		if(this.desk[j][column].visible) {
+			break;
+		} else if(!this.desk[j][column].visible && j == (this.deskSize-1)) {
+			// last element in the column and still no break - empty column
+			return true;
+		}
+	}
+	
+	return false;
+};
+
+/**
+ * Finds the most right column that is still empty and joined with the find empty column index
+ * Dealing with several empty columns next to each other
+ * @param column
+ */
+GameDesk.prototype.getMostRightJoinedEmptyColumn = function(column) {
+	for(var i = column+1; i < this.deskSize; i++) {
+		if(!gameDesk.isColumnEmpty(i)) {
+			return (i-1);
+		}
+	}
+	
+	return -1;
 };
 
 /**
