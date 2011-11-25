@@ -218,7 +218,8 @@ GameDesk.prototype.moveHangingTilesHorizontal = function() {
 		}
 	}
 	
-	console.log(result);
+	// shift tiles in all empty columns to the left
+	gameDesk.shiftEmptyColumns(result);
 };
 
 /**
@@ -250,6 +251,69 @@ GameDesk.prototype.getMostRightJoinedEmptyColumn = function(column) {
 	}
 	
 	return -1;
+};
+
+/**
+ * Shifts all columns that are to the rirhgt of the empty column
+ * @param arr array of all columns that are empty
+ */
+GameDesk.prototype.shiftEmptyColumns = function(arr) {
+	console.log(arr);
+	for(var i = 0; i < arr.length; i++) {
+		var number = gameDesk.getNumberOfColumnsEmpty(arr[i]);
+		for(var j = arr[i]; j < this.deskSize; j++) {
+			gameDesk.shiftColumnsToTheLeft(number, j);
+			arr = gameDesk.recountEmptyColumnsArray(i, number, arr);
+		}
+	}
+};
+
+/**
+ * Returns number of empty columns to the left of the given index
+ * @param column index of the column
+ * @returns {Number} number of empty columns
+ */
+GameDesk.prototype.getNumberOfColumnsEmpty = function(column) {
+	var count = 1;
+	for(var i = column-1; i > 0; i--) {
+		if(this.desk[i][column].visible) {
+			++count;
+		}
+	}
+	
+	return count;
+};
+
+/**
+ * Shifts columns to the left
+ * @param number number of empty columns next to each other
+ * @param column number of firt empty column from the right
+ */
+GameDesk.prototype.shiftColumnsToTheLeft = function(number, column) {
+	for(var i = column+1; i < this.deskSize; i++) {
+		for(var j = 0; j < this.deskSize; j++) {
+			if(this.desk[j][i].visible) {
+				// shift it to the left
+				this.desk[j][i].posX = this.desk[j][i].posX-number;
+				this.desk[j][i].x = this.desk[j][i].x-(number*this.tileSize+number*this.spaceSize);
+			}
+		}
+	}
+};
+
+/**
+ * When desk is shifter, the indexes in empty column arrays need to be recounted
+ * @param index index in thge array of empty columns
+ * @param number number of columns that were shifter to the left
+ * @param arr array with the empty column indexes
+ * @returns fixed array with empty column indexes
+ */
+GameDesk.prototype.recountEmptyColumnsArray = function(index,number,arr) {
+	for(var i = index+1; i < arr.length; i++) {
+		arr[i] = arr[i]-number;
+	}
+	
+	return arr;
 };
 
 /**
