@@ -1,5 +1,4 @@
 function Game(gameDesk) {
-	this.gameDesk = gameDesk;
 	this.time = 0;
 }
 
@@ -7,13 +6,20 @@ function Game(gameDesk) {
  * Init the game and start it
  */
 Game.prototype.start = function() {
-	this.gameDesk.initDesk();
-	this.gameDesk.drawDesk();
-	$("#main-surface").click(gameDesk.handleClick);
+	gameDesk.initDesk();
+	gameDesk.drawDesk();
+	
+	$("#main-surface").click(game.handleClick);
 };
 
-Game.prototype.isEndOfGame = function() {
-	if(!this.gameDesk.isAnyMoveLeft()) {
+Game.prototype.handleClick = function(e) {
+	gameDesk.handleClick(e);
+	game.checkEndOfGame();
+}
+
+Game.prototype.checkEndOfGame = function() {
+	if(!gameDesk.isAnyMoveLeft()) {
+		alert("End of game");
 		// save time
 		// show time and update score
 	}

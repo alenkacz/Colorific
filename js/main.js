@@ -1,6 +1,4 @@
 // TODO
-// todo game loop with endGame checking in Game class
-// detection that game ended - no two tiles of same color next to each other
 // restart button
 // timer
 

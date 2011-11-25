@@ -140,7 +140,7 @@ GameDesk.prototype.doesColorMatch = function(row, side, color) {
 		return false;
 	}
 
-	if(this.desk[row][side].color == color) {
+	if(this.desk[row][side].color == color && this.desk[row][side].visible) {
 		return true;
 	}
 	
@@ -367,6 +367,20 @@ GameDesk.prototype.countFallenTileRowIndex = function(side, row) {
 	return (tileRow-1);
 };
 
+/**
+ * Checks whether there is any move left - any two visible tiles with same color next to
+ * each other
+ * @returns {Boolean} true if a move is possible
+ */
 GameDesk.prototype.isAnyMoveLeft = function() {
+	for(var i = 0; i < this.deskSize; i++) {
+		for(var j = 0; j < this.deskSize; j++) {
+			var tile = this.desk[i][j];
+			if(tile.visible && gameDesk.isValidTileClick(tile.posY, tile.posX, tile.color)) {
+				return true;
+			}
+		}
+	}
 	
-}
+	return false;
+};
