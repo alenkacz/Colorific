@@ -1,6 +1,7 @@
 // TODO
-// restart button
+// do necessary steps when game ended
 // timer
+// grafika
 
 var canvas;
 var gameDesk;

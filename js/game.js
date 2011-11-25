@@ -10,6 +10,7 @@ Game.prototype.start = function() {
 	gameDesk.drawDesk();
 	
 	$("#main-surface").click(game.handleClick);
+	$("#restart-button").click(game.restart);
 };
 
 Game.prototype.handleClick = function(e) {
@@ -26,7 +27,7 @@ Game.prototype.checkEndOfGame = function() {
 };
 
 Game.prototype.restart = function() {
-	
+	game.start();
 };
 
 Game.prototype.isFinished = function() {
