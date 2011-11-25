@@ -1,5 +1,6 @@
 // TODO
-// when space left on the x, the remaining tiles should slide there - look for empty column
+// problem when two spaces nex to each other occurs
+// problem with first column removed - size from 15 to 12
 // restart button
 // timer
 
@@ -254,17 +255,16 @@ GameDesk.prototype.getMostRightJoinedEmptyColumn = function(column) {
 };
 
 /**
- * Shifts all columns that are to the rirhgt of the empty column
+ * Shifts all columns that are to the right of the empty column
  * @param arr array of all columns that are empty
  */
 GameDesk.prototype.shiftEmptyColumns = function(arr) {
-	console.log(arr);
-	for(var i = 0; i < arr.length; i++) {
+	for(var i = 0; i < arr.length; i++) { // for empty column
 		var number = gameDesk.getNumberOfColumnsEmpty(arr[i]);
 		for(var j = arr[i]; j < this.deskSize; j++) {
-			gameDesk.shiftColumnsToTheLeft(number, j);
-			arr = gameDesk.recountEmptyColumnsArray(i, number, arr);
+			gameDesk.shiftColumnToTheLeft(number, j);
 		}
+		arr = gameDesk.recountEmptyColumnsArray(i, number, arr);
 	}
 };
 
@@ -289,14 +289,20 @@ GameDesk.prototype.getNumberOfColumnsEmpty = function(column) {
  * @param number number of empty columns next to each other
  * @param column number of firt empty column from the right
  */
-GameDesk.prototype.shiftColumnsToTheLeft = function(number, column) {
-	for(var i = column+1; i < this.deskSize; i++) {
-		for(var j = 0; j < this.deskSize; j++) {
-			if(this.desk[j][i].visible) {
-				// shift it to the left
-				this.desk[j][i].posX = this.desk[j][i].posX-number;
-				this.desk[j][i].x = this.desk[j][i].x-(number*this.tileSize+number*this.spaceSize);
-			}
+GameDesk.prototype.shiftColumnToTheLeft = function(number, column) {
+	for(var j = 0; j < this.deskSize; j++) {
+		if(this.desk[j][column].visible) {
+			// shift it to the left
+			var newX = this.desk[j][column].x-(number*this.tileSize+number*this.spaceSize);
+			var newPosX = this.desk[j][column].posX-number;
+			this.desk[j][column-number] = new Rectangle(newX,this.desk[j][column].y, this.tileSize);
+			
+			this.desk[j][column-number].posX = newPosX;
+			this.desk[j][column-number].posY = this.desk[j][column].posY;
+			
+			this.desk[j][column-number].color = this.desk[j][column].color;
+
+			gameDesk.hideTile(j, column);
 		}
 	}
 };
@@ -321,7 +327,6 @@ GameDesk.prototype.recountEmptyColumnsArray = function(index,number,arr) {
  * @param arr all tiles that have a non visible tile under them
  */
 GameDesk.prototype.tilesFallDown = function(arr) {
-	console.log(arr);
 	for(var i = 0; i < arr.length; i++) {
 		for(var j = arr[i].posY; j > -1; j--) { // for all tiles above this one
 			var tile = this.desk[j][arr[i].posX];
