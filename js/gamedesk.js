@@ -10,6 +10,7 @@ function GameDesk() {
 	this.posY = 0;
 	
 	this.desk = new Array(this.deskSize);
+	this.deskAfterInit = new Array(this.deskSize);
 	
 	for(var i=0; i <this.deskSize; i++) {
 		this.desk[i] = new Array(this.deskSize);
@@ -32,6 +33,8 @@ GameDesk.prototype.initDesk = function() {
 		y += this.tileSize + this.spaceSize;
 		x = this.startPos;
 	}
+	
+	this.deskAfterInit = gameDesk.copyDesk(this.desk);
 };
 
 GameDesk.prototype.drawDesk = function() {
@@ -42,6 +45,17 @@ GameDesk.prototype.drawDesk = function() {
 			}
 		}
 	}
+};
+
+/**
+ * Restarts the game with the same tiles as are there now
+ */
+GameDesk.prototype.resetDesk = function() {
+	this.desk = gameDesk.copyDesk(this.deskAfterInit);
+};
+
+GameDesk.prototype.copyDesk = function() {
+	
 };
 
 GameDesk.prototype.repaint = function() {
@@ -85,12 +99,13 @@ GameDesk.prototype.getTilePosition = function(x) {
  */
 GameDesk.prototype.handleTileClick = function(row,side) {
 	var color = this.desk[row][side].color;
-	
+
 	if(gameDesk.isValidTileClick(row,side,color)) {
 		gameDesk.exploreNeighborsAndFindMatch(row,side,color);
 		gameDesk.moveHangingTilesVertical();
 		gameDesk.moveHangingTilesHorizontal();
 	
+		logDeskStatus();
 		gameDesk.repaint();
 	}
 };
@@ -156,6 +171,7 @@ GameDesk.prototype.doesColorMatch = function(row, side, color) {
 GameDesk.prototype.exploreNeighborsAndFindMatch = function(row,side,color) {
 	if(this.desk[row][side].color == color && this.desk[row][side].visible) {
 		// matches!
+		if(debug) {$("#log").append(row + "," + side + "<br />");}
 		gameDesk.hideTile(row,side);
 		
 		// explore neighbors

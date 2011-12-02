@@ -1,4 +1,6 @@
 // TODO
+// remove the big fat bug
+// reset with the same desk
 // do necessary steps when game ended
 // timer
 // grafika
@@ -6,6 +8,8 @@
 var canvas;
 var gameDesk;
 var game;
+var timer;
+var debug = true;
 
 $(document).ready(function() {
 	canvas = document.getElementById('main-surface');

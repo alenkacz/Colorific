@@ -9,6 +9,9 @@ Game.prototype.start = function() {
 	gameDesk.initDesk();
 	gameDesk.drawDesk();
 	
+	timer = new Timer();
+	timer.init();
+	
 	$("#main-surface").click(game.handleClick);
 	$("#restart-button").click(game.restart);
 };
@@ -27,7 +30,8 @@ Game.prototype.checkEndOfGame = function() {
 };
 
 Game.prototype.restart = function() {
-	game.start();
+	gameDesk.resetDesk();
+	gameDesk.drawDesk();
 };
 
 Game.prototype.isFinished = function() {
