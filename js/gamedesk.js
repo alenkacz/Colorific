@@ -12,8 +12,8 @@ function GameDesk() {
 	this.colorCount = 3;
 };
 
-GameDesk.prototype.initDesk = function() {
-	gameDesk.processSettings();
+GameDesk.prototype.initDesk = function(size) {
+	gameDesk.processSettings(size);
 	
 	var cGen = new ColorGenerator(this.colorCount);
 	var x = this.startPos, y = this.startPos;
@@ -30,8 +30,6 @@ GameDesk.prototype.initDesk = function() {
 		y += this.tileSize + this.spaceSize;
 		x = this.startPos;
 	}
-	
-	this.deskAfterInit = gameDesk.copyDesk(this.desk);
 };
 
 GameDesk.prototype.drawDesk = function() {
@@ -44,8 +42,8 @@ GameDesk.prototype.drawDesk = function() {
 	}
 };
 
-GameDesk.prototype.processSettings = function() {
-	var deskSettings = settings.getDesk("m");
+GameDesk.prototype.processSettings = function(size) {
+	var deskSettings = settings.getDesk(size);
 	
 	this.deskSize = deskSettings.deskSize;
 	this.colorCount = deskSettings.colorCount;
@@ -61,12 +59,8 @@ GameDesk.prototype.processSettings = function() {
 /**
  * Restarts the game with the same tiles as are there now
  */
-GameDesk.prototype.resetDesk = function() {
-	this.desk = gameDesk.copyDesk(this.deskAfterInit);
-};
-
-GameDesk.prototype.copyDesk = function() {
-	
+GameDesk.prototype.resetDesk = function(size) {
+	gameDesk.initDesk(size);
 };
 
 GameDesk.prototype.repaint = function() {

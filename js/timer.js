@@ -1,10 +1,17 @@
 function Timer() {
-	this.startTime = new Date();
+	this.startTimer;
 	this.timer;
 };
 
-Timer.prototype.init = function() {
+Timer.prototype.start = function() {
 	this.timer = window.setInterval(timer.updateTime, 500);
+	this.startTime = new Date();
+};
+
+Timer.prototype.restart = function() {
+	$("#timer").html("0:00");
+	timer.stopAndGetElapsedTime();
+	timer.start();
 };
 
 Timer.prototype.stopAndGetElapsedTime = function() {

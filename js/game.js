@@ -1,25 +1,29 @@
 function Game(gameDesk) {
 	this.time = 0;
+	this.defaultDesk = "m";
 }
 
 /**
  * Init the game and start it
  */
 Game.prototype.start = function() {
-	gameDesk.initDesk();
+	gameDesk.initDesk(this.defaultDesk);
 	gameDesk.drawDesk();
 	
 	timer = new Timer();
-	timer.init();
+	timer.start();
 	
 	$("#main-surface").click(game.handleClick);
-	$("#restart-button").click(game.restart);
+	//$("#restart-button").click(game.restart);
+	$("#s").click(game.small);
+	$("#m").click(game.medium);
+	$("#xl").click(game.big);
 };
 
 Game.prototype.handleClick = function(e) {
 	gameDesk.handleClick(e);
 	game.checkEndOfGame();
-}
+};
 
 Game.prototype.checkEndOfGame = function() {
 	if(!gameDesk.isAnyMoveLeft()) {
@@ -30,9 +34,22 @@ Game.prototype.checkEndOfGame = function() {
 	}
 };
 
-Game.prototype.restart = function() {
-	gameDesk.resetDesk();
-	gameDesk.drawDesk();
+Game.prototype.restart = function(size) {
+	timer.restart();
+	gameDesk.resetDesk(size);
+	gameDesk.repaint();
+};
+
+Game.prototype.small = function() {
+	game.restart("s");
+};
+
+Game.prototype.medium = function() {
+	game.restart("m");
+};
+
+Game.prototype.big = function() {
+	game.restart("xl");
 };
 
 Game.prototype.isFinished = function() {
