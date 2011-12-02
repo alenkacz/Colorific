@@ -1,8 +1,7 @@
 // TODO
 // remove the big fat bug
-// reset with the same desk
+// score - 1/5 games is a win, shortest game, win/loses percentage
 // do necessary steps when game ended
-// timer
 // grafika
 
 var canvas;
@@ -10,13 +9,16 @@ var gameDesk;
 var game;
 var timer;
 var settings;
+var highscoreHelper;
 var debug = true;
 
 $(document).ready(function() {
 	canvas = document.getElementById('main-surface');
 	
+	highscoreHelper = new HighscoreHelper();
 	settings = new GameSettings();
 	gameDesk = new GameDesk();
+	
 	game = new Game(gameDesk);
 	game.start();
 });
