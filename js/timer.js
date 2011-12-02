@@ -7,19 +7,33 @@ Timer.prototype.init = function() {
 	this.timer = window.setInterval(timer.updateTime, 500);
 };
 
+Timer.prototype.stopAndGetElapsedTime = function() {
+	var diff = new Date() - timer.startTime;
+	
+	var elapsed = timer.getElapsedString(diff);
+	window.clearInterval(this.timer);
+	
+	return elapsed;
+};
+
 /**
  * Updates displayed time, called as a setInterval callback
  */
 Timer.prototype.updateTime = function() {
+	console.log("a");
 	var now = new Date();
 	var diff = now - timer.startTime;
-	
+
+	var timeString = timer.getElapsedString(diff);
+	$("#timer").html(timeString);
+};
+
+Timer.prototype.getElapsedString = function(diff) {
 	var minutes = timer.getMinutes(diff);
 	var seconds = timer.getSeconds(diff);
 	
 	var zero = (seconds < 10)? "0": "";
-	var timeString = minutes + ":" + zero + seconds;
-	$("#timer").html(timeString);
+	return minutes + ":" + zero + seconds;
 };
 
 /**

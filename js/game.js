@@ -23,7 +23,8 @@ Game.prototype.handleClick = function(e) {
 
 Game.prototype.checkEndOfGame = function() {
 	if(!gameDesk.isAnyMoveLeft()) {
-		alert("End of game");
+		var elapsed = timer.stopAndGetElapsedTime();
+		alert("End of game in time " + elapsed);
 		// save time
 		// show time and update score
 	}
