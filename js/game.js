@@ -28,6 +28,13 @@ Game.prototype.handleClick = function(e) {
 Game.prototype.checkEndOfGame = function() {
 	if(!gameDesk.isAnyMoveLeft()) {
 		var elapsed = timer.stopAndGetElapsedTime();
+		if(gameDesk.isAWin()) {
+			// winner
+			highscoreStorage.addToWinsCount();
+		} else {
+			highscoreStorage.addToLosesCount();
+		}
+		
 		alert("End of game in time " + elapsed);
 		// save time
 		// show time and update score

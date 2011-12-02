@@ -3,10 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Colorific</title>
+
 <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+
 <script type="text/javascript" src="js/main.js"></script> 
 <script type="text/javascript" src="js/debug-helper.js"></script> 
-<script type="text/javascript" src="js/highscore-helper.js"></script> 
+<script type="text/javascript" src="js/highscore-storage.js"></script> 
+<script type="text/javascript" src="js/highscore.js"></script> 
 <script type="text/javascript" src="js/settings.js"></script> 
 <script type="text/javascript" src="js/timer.js"></script> 
 <script type="text/javascript" src="js/gamedesk.js"></script> 
@@ -21,7 +24,11 @@
 		<!-- <button id="restart-button">Restart</button><br /> -->
 		<button id="s">S</button><br />
 		<button id="m">M</button><br />
-		<button id="xl">XL</button><br />
+		<button id="xl">XL</button><br /><br />
+		<div id="highscore">
+			Wins percentage<br />
+			<span id="wins-loses"></span>
+		</div>
 	</div>
 	<div id="log">
 	</div>

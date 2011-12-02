@@ -7,25 +7,27 @@ var small = "s";
 var medium = "m";
 var big = "b";
 
-function HighscoreHelper() {}
+function HighscoreStorage() {}
 
-HighscoreHelper.prototype.addToLosesCount = function() {
-	storageHelper.addOneToStorage(losesTotalKey);
+HighscoreStorage.prototype.addToLosesCount = function() {
+	highscoreStorage.addOneToStorage(losesTotalKey);
 };
 
-HighscoreHelper.prototype.addToWinsCount = function() {
-	storageHelper.addOneToStorage(winsTotalKey);
+HighscoreStorage.prototype.addToWinsCount = function() {
+	highscoreStorage.addOneToStorage(winsTotalKey);
 };
 
-HighscoreHelper.prototype.addOneToStorage = function(key) {
+HighscoreStorage.prototype.addOneToStorage = function(key) {
 	var count = sessionStorage.getItem(key);
-	loses++;
+	count++;
 	sessionStorage.setItem(key, count);
 };
 
-HighscoreHelper.prototype.getWinPercentage = function() {
+HighscoreStorage.prototype.getWinPercentage = function() {
 	var loses = sessionStorage.getItem(losesTotalKey);
 	var wins = sessionStorage.getItem(winsTotalKey);
+	
+	console.log(wins/loses);
 	
 	return parseInt(wins/loses * 100);
 };

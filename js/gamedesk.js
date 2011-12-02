@@ -405,3 +405,20 @@ GameDesk.prototype.isAnyMoveLeft = function() {
 	
 	return false;
 };
+
+/**
+ * Checks whether the finished game is a win or a lose
+ * @returns {Boolean} true if user has won
+ */
+GameDesk.prototype.isAWin = function() {
+	for(var i = 0; i < this.deskSize; i++) {
+		for(var j = 0; j < this.deskSize; j++) {
+			var tile = this.desk[i][j];
+			if(tile.visible) {
+				return false;
+			}
+		}
+	}
+	
+	return true;
+};
