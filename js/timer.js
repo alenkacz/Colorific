@@ -20,7 +20,6 @@ Timer.prototype.stopAndGetElapsedTime = function() {
  * Updates displayed time, called as a setInterval callback
  */
 Timer.prototype.updateTime = function() {
-	console.log("a");
 	var now = new Date();
 	var diff = now - timer.startTime;
 

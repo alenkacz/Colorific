@@ -9,16 +9,13 @@ function GameDesk() {
 	this.posX = 0;
 	this.posY = 0;
 	
-	this.desk = new Array(this.deskSize);
-	this.deskAfterInit = new Array(this.deskSize);
-	
-	for(var i=0; i <this.deskSize; i++) {
-		this.desk[i] = new Array(this.deskSize);
-	}
+	this.colorCount = 3;
 };
 
 GameDesk.prototype.initDesk = function() {
-	var cGen = new ColorGenerator();
+	gameDesk.processSettings();
+	
+	var cGen = new ColorGenerator(this.colorCount);
 	var x = this.startPos, y = this.startPos;
 	for(var i = 0; i < this.deskSize; i++) {
 		for(var j = 0; j < this.deskSize; j++) {
@@ -44,6 +41,20 @@ GameDesk.prototype.drawDesk = function() {
 				this.desk[i][j].draw();
 			}
 		}
+	}
+};
+
+GameDesk.prototype.processSettings = function() {
+	var deskSettings = settings.getDesk("m");
+	
+	this.deskSize = deskSettings.deskSize;
+	this.colorCount = deskSettings.colorCount;
+	
+	this.desk = new Array(this.deskSize);
+	this.deskAfterInit = new Array(this.deskSize);
+	
+	for(var i=0; i <this.deskSize; i++) {
+		this.desk[i] = new Array(this.deskSize);
 	}
 };
 

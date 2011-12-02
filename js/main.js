@@ -9,11 +9,13 @@ var canvas;
 var gameDesk;
 var game;
 var timer;
+var settings;
 var debug = true;
 
 $(document).ready(function() {
 	canvas = document.getElementById('main-surface');
 	
+	settings = new GameSettings();
 	gameDesk = new GameDesk();
 	game = new Game(gameDesk);
 	game.start();
@@ -40,8 +42,9 @@ Rectangle.prototype.draw = function() {
 /**
  * Class responsible for random color generation for tiles
  */
-function ColorGenerator() {
+function ColorGenerator(maxCount) {
 	this.colors = ["#e62e2e","#2a9e13","#1122db","#ffaa00"];
+	this.maxCount = maxCount;
 }
 
 /**
@@ -49,5 +52,5 @@ function ColorGenerator() {
  * @returns string containing a hexa color
  */
 ColorGenerator.prototype.getRandomColor = function() {
-	return this.colors[Math.floor(Math.random()*4)];
+	return this.colors[Math.floor(Math.random()*this.maxCount)];
 };
