@@ -1,9 +1,8 @@
 // TODO
 // remove the big fat bug
-// score - 1/5 games is a win, shortest game, win/loses percentage
+// score - shortest game, win/loses percentage
 // do necessary steps when game ended
 // lose must be counted even if the game is not finished but sarted (was clicked)
-// game board should be always in the center of the screen
 // grafika - right panel, start new game
 
 var blueImg;
