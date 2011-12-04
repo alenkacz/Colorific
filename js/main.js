@@ -1,10 +1,18 @@
 // TODO
 // remove the big fat bug
+// NaN bug
 // score - 1/5 games is a win, shortest game, win/loses percentage
 // do necessary steps when game ended
 // lose must be counted even if the game is not finished but sarted (was clicked)
 // game board should be always in the center of the screen
 // grafika
+
+var blueImg;
+var greenImg;
+var yellowImg;
+var preloadedImagesCounter = 0;
+
+initImages();
 
 var canvas;
 var gameDesk;
@@ -26,8 +34,36 @@ $(document).ready(function() {
 	highscore.update();
 	
 	game = new Game(gameDesk);
-	game.start();
 });
+
+/** IMAGES **/
+
+function initImages() {
+	blueImg = new Image();
+	greenImg = new Image();
+	yellowImg = new Image();
+	
+	blueImg.src = 'img/blue.png';
+	greenImg.src = 'img/green.png';
+	yellowImg.src = 'img/yellow.png';
+	
+	blueImg.onload = function() {
+		imgLoaderCallback();
+	};
+	greenImg.onload = function() {
+		imgLoaderCallback();
+	};
+	yellowImg.onload = function() {
+		imgLoaderCallback();
+	};
+}
+
+function imgLoaderCallback() {
+	preloadedImagesCounter++;
+	if(preloadedImagesCounter == 3) {
+		game.start();
+	}
+}
 
 /** RECTANGLE **/
 
@@ -41,8 +77,14 @@ function Rectangle(x,y, tileSize) {
 
 Rectangle.prototype.draw = function() {
 	var ctx = canvas.getContext('2d'); 
-	ctx.fillStyle = this.color;
-	ctx.fillRect(this.x,this.y,this.tileSize,this.tileSize);
+	
+	if(this.color == "#e62e2e") {
+		ctx.drawImage(blueImg, this.x,this.y);
+	} else if(this.color == "#2a9e13") {
+		ctx.drawImage(greenImg, this.x,this.y);
+	} else {
+		ctx.drawImage(yellowImg, this.x,this.y);
+	}
 };
 
 /** COLOR GENERATOR **/
@@ -51,7 +93,7 @@ Rectangle.prototype.draw = function() {
  * Class responsible for random color generation for tiles
  */
 function ColorGenerator(maxCount) {
-	this.colors = ["#e62e2e","#2a9e13","#1122db","#ffaa00"];
+	this.colors = ["#e62e2e","#2a9e13","#1122db"];
 	this.maxCount = maxCount;
 }
 
