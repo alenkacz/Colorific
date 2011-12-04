@@ -49,6 +49,7 @@ GameDesk.prototype.processSettings = function(size) {
 	this.deskSize = deskSettings.deskSize;
 	this.colorCount = deskSettings.colorCount;
 	this.colors = deskSettings.colors;
+	this.startPos = deskSettings.startPos;
 	
 	this.desk = new Array(this.deskSize);
 	this.deskAfterInit = new Array(this.deskSize);

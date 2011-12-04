@@ -1,7 +1,7 @@
 function GameSettings() {
-	this.small = new DeskSettings(9,3);
-	this.medium = new DeskSettings(12,3);
-	this.big = new DeskSettings(15,3);
+	this.small = new DeskSettings(9,3,128);
+	this.medium = new DeskSettings(12,3,89);
+	this.big = new DeskSettings(15,3,50);
 };
 
 GameSettings.prototype.getDesk = function(id) {
@@ -16,10 +16,11 @@ GameSettings.prototype.getDesk = function(id) {
 	return this.big;
 };
 
-function DeskSettings(deskSize, colorCount) {
+function DeskSettings(deskSize, colorCount, startPos) {
 	this.deskSize = deskSize;
 	this.colorCount = colorCount;
 	this.colors = chooseRandomColors();
+	this.startPos = startPos;
 }
 
 function chooseRandomColors() {
