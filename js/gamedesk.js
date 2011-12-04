@@ -10,12 +10,13 @@ function GameDesk() {
 	this.posY = 0;
 	
 	this.colorCount = 3;
+	this.colors = Array();
 };
 
 GameDesk.prototype.initDesk = function(size) {
 	gameDesk.processSettings(size);
 	
-	var cGen = new ColorGenerator(this.colorCount);
+	var cGen = new ColorGenerator(this.colorCount, this.colors);
 	var x = this.startPos, y = this.startPos;
 	for(var i = 0; i < this.deskSize; i++) {
 		for(var j = 0; j < this.deskSize; j++) {
@@ -47,6 +48,7 @@ GameDesk.prototype.processSettings = function(size) {
 	
 	this.deskSize = deskSettings.deskSize;
 	this.colorCount = deskSettings.colorCount;
+	this.colors = deskSettings.colors;
 	
 	this.desk = new Array(this.deskSize);
 	this.deskAfterInit = new Array(this.deskSize);

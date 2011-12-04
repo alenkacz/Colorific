@@ -10,6 +10,7 @@
 var blueImg;
 var greenImg;
 var yellowImg;
+var redImg;
 var preloadedImagesCounter = 0;
 
 initImages();
@@ -42,10 +43,12 @@ function initImages() {
 	blueImg = new Image();
 	greenImg = new Image();
 	yellowImg = new Image();
+	redImg = new Image();
 	
 	blueImg.src = 'img/blue.png';
 	greenImg.src = 'img/green.png';
 	yellowImg.src = 'img/yellow.png';
+	redImg.src = 'img/red.png';
 	
 	blueImg.onload = function() {
 		imgLoaderCallback();
@@ -56,11 +59,14 @@ function initImages() {
 	yellowImg.onload = function() {
 		imgLoaderCallback();
 	};
+	redImg.onload = function() {
+		imgLoaderCallback();
+	};
 }
 
 function imgLoaderCallback() {
 	preloadedImagesCounter++;
-	if(preloadedImagesCounter == 3) {
+	if(preloadedImagesCounter == 4) {
 		game.start();
 	}
 }
@@ -82,8 +88,10 @@ Rectangle.prototype.draw = function() {
 		ctx.drawImage(blueImg, this.x,this.y);
 	} else if(this.color == "#2a9e13") {
 		ctx.drawImage(greenImg, this.x,this.y);
-	} else {
+	} else if(this.color == "#1122db") {
 		ctx.drawImage(yellowImg, this.x,this.y);
+	} else {
+		ctx.drawImage(redImg, this.x,this.y);
 	}
 };
 
@@ -92,8 +100,10 @@ Rectangle.prototype.draw = function() {
 /**
  * Class responsible for random color generation for tiles
  */
-function ColorGenerator(maxCount) {
-	this.colors = ["#e62e2e","#2a9e13","#1122db"];
+function ColorGenerator(maxCount, colors) {
+	this.colorsBuffer = ["#e62e2e","#2a9e13","#1122db","#ffaa00"];
+	this.colors = colors;
+	
 	this.maxCount = maxCount;
 }
 
