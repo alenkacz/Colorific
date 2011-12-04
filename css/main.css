@@ -12,3 +12,11 @@
 button {
 	margin-top:20px;
 }
+
+#start-new-game {
+	top:200px;
+	left:200px;
+	font-size:30px;
+	position:absolute;
+	display:none;
+}

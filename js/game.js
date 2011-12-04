@@ -36,12 +36,14 @@ Game.prototype.checkEndOfGame = function() {
 		}
 		
 		alert("End of game in time " + elapsed);
+		$("#start-new-game").css("display","block");
 		// save time
 		// show time and update score
 	}
 };
 
 Game.prototype.restart = function(size) {
+	$("#start-new-game").css("display","none");
 	timer.restart();
 	settings = new GameSettings();
 	highscore.update();
