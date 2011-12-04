@@ -24,7 +24,7 @@ function DeskSettings(deskSize, colorCount) {
 
 function chooseRandomColors() {
 	var index = Math.floor(Math.random()*3);
-	
+
 	if(index == 0) {
 		return ["#1122db", "#ffaa00", "#e62e2e"];
 	} else if(index == 1) {
