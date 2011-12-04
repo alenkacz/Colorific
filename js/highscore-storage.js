@@ -18,7 +18,7 @@ HighscoreStorage.prototype.addToWinsCount = function() {
 };
 
 HighscoreStorage.prototype.addOneToStorage = function(key) {
-	var count = sessionStorage.getItem(key);
+	var count = localStorage[key];
 	count++;
 	localStorage[key] = count;
 };

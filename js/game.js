@@ -44,6 +44,8 @@ Game.prototype.checkEndOfGame = function() {
 Game.prototype.restart = function(size) {
 	timer.restart();
 	settings = new GameSettings();
+	highscore.update();
+	
 	gameDesk.resetDesk(size);
 	gameDesk.repaint();
 };
