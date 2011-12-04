@@ -20,14 +20,14 @@ HighscoreStorage.prototype.addToWinsCount = function() {
 HighscoreStorage.prototype.addOneToStorage = function(key) {
 	var count = sessionStorage.getItem(key);
 	count++;
-	sessionStorage.setItem(key, count);
+	localStorage[key] = count;
 };
 
 HighscoreStorage.prototype.getWinPercentage = function() {
-	var loses = sessionStorage.getItem(losesTotalKey);
-	var wins = sessionStorage.getItem(winsTotalKey);
+	var loses = localStorage[losesTotalKey];
+	var wins = localStorage[winsTotalKey];
 	
-	console.log(wins/loses);
+	if(wins == undefined || loses == undefined) return 0;
 	
 	return parseInt(wins/loses * 100);
 };
