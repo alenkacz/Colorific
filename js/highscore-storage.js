@@ -27,7 +27,7 @@ HighscoreStorage.prototype.getWinPercentage = function() {
 	var loses = localStorage[losesTotalKey];
 	var wins = localStorage[winsTotalKey];
 	
-	if(wins == undefined || loses == undefined) return 0;
+	if(isNaN(wins) || isNaN(Number.NaN)) return 0;
 	
 	return parseInt(wins/loses * 100);
 };
