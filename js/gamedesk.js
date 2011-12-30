@@ -4,7 +4,7 @@ function GameDesk() {
 	this.tileSize = 25;
 	this.spaceSize = 2;
 	this.deskSize = 15;
-	this.startPos = 50;
+	this.startPos = 10;
 	
 	this.posX = 0;
 	this.posY = 0;
@@ -113,7 +113,7 @@ GameDesk.prototype.handleTileClick = function(row,side) {
 		gameDesk.moveHangingTilesVertical();
 		gameDesk.moveHangingTilesHorizontal();
 	
-		logDeskStatus();
+		if(debug) logDeskStatus();
 		gameDesk.repaint();
 	}
 };

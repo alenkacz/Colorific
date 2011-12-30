@@ -1,7 +1,7 @@
 function GameSettings() {
-	this.small = new DeskSettings(9,3,128);
-	this.medium = new DeskSettings(12,3,89);
-	this.big = new DeskSettings(15,3,50);
+	this.small = new DeskSettings(9,3,98);
+	this.medium = new DeskSettings(12,3,59);
+	this.big = new DeskSettings(15,3,20);
 };
 
 GameSettings.prototype.getDesk = function(id) {

@@ -20,7 +20,7 @@ var timer;
 var settings;
 var highscore;
 var highscoreStorage;
-var debug = true;
+var debug = false;
 
 $(document).ready(function() {
 	canvas = document.getElementById('main-surface');

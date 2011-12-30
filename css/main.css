@@ -1,3 +1,11 @@
+body {
+	background:url("../img/bg.png");
+}
+
+#main-surface {
+	background:url("../img/game-bg.png");
+}
+
 #left-panel {
 	position:absolute;
 	left:510px;
@@ -13,10 +21,47 @@ button {
 	margin-top:20px;
 }
 
+.s-button, .m-button, .l-button {
+	border:0;
+	text-indent:-10000px;
+	cursor:pointer;
+}
+
+.s-button {
+	background:url("../img/s-btn.png") no-repeat;
+	width:54px;
+	height:60px;
+}
+
+.m-button {
+	background:url("../img/m-btn.png") no-repeat;
+	width:70px;
+	height:74px;
+}
+
+.l-button {
+	background:url("../img/l-btn.png") no-repeat;
+	width:80px;
+	height:82px;
+}
+
 #start-new-game {
 	top:200px;
 	left:200px;
 	font-size:30px;
 	position:absolute;
 	display:none;
+}
+
+#highscore {
+	text-align:right;
+	padding-right:150px;
+}
+
+#container {
+	width:600px;
+}
+
+h1 {
+
 }

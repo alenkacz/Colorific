@@ -18,20 +18,19 @@
 <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-	<canvas id="main-surface" width="450" height="450"></canvas>
-	<span id="start-new-game">Start new game</span>
-	<div id="left-panel">
-		<span id="timer">0:00</span><br />
-		<!-- <button id="restart-button">Restart</button><br /> -->
-		<button id="s">S</button><br />
-		<button id="m">M</button><br />
-		<button id="xl">XL</button><br /><br />
+	<div id="container">
+		<h1>Colorific</h1>
+		<canvas id="main-surface" width="450" height="450"></canvas>
+		<span id="start-new-game">Start new game</span>
+		<div id="left-panel">
+			<span id="timer">0:00</span><br />
+			<!-- <button id="restart-button">Restart</button><br /> -->
+			<button id="s" class="s-button">S</button><br />
+			<button id="m" class="m-button">M</button><br />
+			<button id="xl" class="l-button">L</button><br /><br />
+		</div>
 		<div id="highscore">
-			Based on you skill, there is<br />
-			<span id="wins-loses"></span><br />
-			chance you are going to win<br />
-			And it would be great to do it faster than<br />
-			<span id="best-time"></span><br />
+			wins percentage: <span id="wins-loses"></span><br />
 		</div>
 	</div>
 	<div id="log">
