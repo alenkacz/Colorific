@@ -53,6 +53,14 @@ button {
 	display:none;
 }
 
+#win, #lose {
+	top:150px;
+	left:100px;
+	font-size:30px;
+	position:absolute;
+	display:none;
+}
+
 #highscore {
 	text-align:right;
 	padding-right:150px;
@@ -63,5 +71,10 @@ button {
 }
 
 h1 {
-
+	width:252px;
+	height:68px;
+	text-indent:-10000px;
+	display:block;
+	background:url("../img/logo.png") no-repeat;
+	margin-left:30px;
 }

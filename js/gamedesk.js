@@ -5,6 +5,7 @@ function GameDesk() {
 	this.spaceSize = 2;
 	this.deskSize = 15;
 	this.startPos = 10;
+	this.topMargin = 100;
 	
 	this.posX = 0;
 	this.posY = 0;
@@ -76,11 +77,11 @@ GameDesk.prototype.repaint = function() {
  * Determines whether the given x,y position is inside the gamedesk
  */
 GameDesk.prototype.isInsideDesk = function(x,y) {
-	if(x < this.startPos || y < this.startPos) {
+	if(x < this.startPos || y < (this.startPos + this.topMargin)) {
 		return false;
 	}
 	var deskSize = this.startPos + this.deskSize*(this.tileSize+this.spaceSize);
-	if((x < deskSize) && (y < deskSize)) {
+	if((x < deskSize) && (y < (deskSize + this.topMargin))) {
 		return true;
 	}
 	
@@ -93,7 +94,17 @@ GameDesk.prototype.isInsideDesk = function(x,y) {
  * @returns {Number} position of the tile
  */
 GameDesk.prototype.getTilePosition = function(x) {
-	var pos = x - this.startPos - 15;
+	var pos = x - this.startPos -15;
+	return parseInt(pos / (this.tileSize + this.spaceSize/2));
+};
+
+/**
+ * Returns position of the tile inside the gamedesk
+ * @param x x position of the click
+ * @returns {Number} position of the tile
+ */
+GameDesk.prototype.getTilePositionY = function(y) {
+	var pos = y - this.startPos - this.topMargin - 15;
 	return parseInt(pos / (this.tileSize + this.spaceSize/2));
 };
 
@@ -107,13 +118,13 @@ GameDesk.prototype.getTilePosition = function(x) {
  */
 GameDesk.prototype.handleTileClick = function(row,side) {
 	var color = this.desk[row][side].color;
-
+	
 	if(gameDesk.isValidTileClick(row,side,color)) {
 		gameDesk.exploreNeighborsAndFindMatch(row,side,color);
 		gameDesk.moveHangingTilesVertical();
 		gameDesk.moveHangingTilesHorizontal();
 	
-		if(debug) logDeskStatus();
+		//if(debug) logDeskStatus();
 		gameDesk.repaint();
 	}
 };
@@ -121,7 +132,10 @@ GameDesk.prototype.handleTileClick = function(row,side) {
 GameDesk.prototype.handleClick = function(e) {
 	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
 		var side = gameDesk.getTilePosition(e.clientX);
-		var row = gameDesk.getTilePosition(e.clientY);
+		var row = gameDesk.getTilePositionY(e.clientY);
+		
+		console.log(row);
+		
 		gameDesk.handleTileClick(row,side);
 	}
 };

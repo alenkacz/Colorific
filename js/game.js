@@ -35,7 +35,11 @@ Game.prototype.checkEndOfGame = function() {
 			highscoreStorage.addToLosesCount();
 		}
 		
-		alert("End of game in time " + elapsed);
+		if(gameDesk.isAWin()) {
+			$("#win").css("display","block");
+		} else {
+			$("#lose").css("display","block");
+		}
 		$("#start-new-game").css("display","block");
 		// save time
 		// show time and update score
