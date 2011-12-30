@@ -48,6 +48,9 @@ Game.prototype.checkEndOfGame = function() {
 
 Game.prototype.restart = function(size) {
 	$("#start-new-game").css("display","none");
+	$("#win").css("display","none");
+	$("#lose").css("display","none");
+	
 	timer.restart();
 	settings = new GameSettings();
 	highscore.update();
