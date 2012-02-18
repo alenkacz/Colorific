@@ -13,8 +13,8 @@ body {
 #left-panel {
 	padding-top:40px;
 	position:absolute;
-	left:621px;
-	top:70px;
+	left:541px;
+	top:0;
 	width:265px;
 }
 
@@ -93,13 +93,15 @@ button {
 	margin:70px 0 0 72px;
 	width:806px;
 	background:url("../img/game-bg.png") no-repeat;
+	margin:auto;
+	position:relative;
 }
 
 #logo {
 	text-indent:-5000px;
 	position:absolute;
-	left:32px;
-	top:230px;
+	left:-48px;
+	top:183px;
 	width:48px;
 	height:138px;
 	background:url("../img/logo-small.png") no-repeat;

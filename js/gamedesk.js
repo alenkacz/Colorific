@@ -5,8 +5,8 @@ function GameDesk() {
 	this.spaceSize = 2;
 	this.deskSize = 15;
 	this.startPos = 10;
-	this.topMargin = 80;
-	this.leftMargin = 100;
+	this.topMargin = 20;
+	this.leftMargin = 20;
 	
 	this.posX = 0;
 	this.posY = 0;
@@ -142,9 +142,12 @@ GameDesk.prototype.handleTileHover = function(row,side) {
 };
 
 GameDesk.prototype.handleClick = function(e) {
-	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
-		var side = gameDesk.getTilePosition(e.clientX);
-		var row = gameDesk.getTilePositionY(e.clientY);
+	var x = e.pageX-document.getElementById("container").offsetLeft;
+	var y = e.pageY-document.getElementById("container").offsetTop;
+	
+	if(gameDesk.isInsideDesk(x,y)) {
+		var side = gameDesk.getTilePosition(x);
+		var row = gameDesk.getTilePositionY(y);
 		
 		gameDesk.handleTileClick(row,side);
 	}
@@ -152,9 +155,13 @@ GameDesk.prototype.handleClick = function(e) {
 
 GameDesk.prototype.handleHover = function(e) {
 	gameDesk.clearHover();
-	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
-		var side = gameDesk.getTilePosition(e.clientX);
-		var row = gameDesk.getTilePositionY(e.clientY);
+	
+	var x = e.pageX-document.getElementById("container").offsetLeft;
+	var y = e.pageY-document.getElementById("container").offsetTop;
+	
+	if(gameDesk.isInsideDesk(x, y)) {
+		var side = gameDesk.getTilePosition(x);
+		var row = gameDesk.getTilePositionY(y);
 
 		gameDesk.handleTileHover(row,side);
 	}
