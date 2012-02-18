@@ -169,7 +169,8 @@ GameDesk.prototype.clearHover = function() {
 };
 
 GameDesk.prototype.setHoverTagOnNeighbors = function(row,side,color) {
-	if(this.desk[row][side].color == color && !this.desk[row][side].hover) {
+	if(this.desk[row][side].color == color && !this.desk[row][side].hover 
+			&& this.desk[row][side].visible ) {
 		// matches!
 		gameDesk.setHoverTag(row,side);
 		
