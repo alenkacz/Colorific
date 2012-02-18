@@ -15,6 +15,7 @@ Game.prototype.start = function() {
 	timer.start();
 	
 	$("#main-surface").click(game.handleClick);
+	$("#main-surface").mousemove(gameDesk.handleHover);
 	$("#restart-button").click(game.restart);
 };
 
@@ -50,8 +51,6 @@ Game.prototype.restart = function() {
 	timer.restart();
 	settings = new GameSettings();
 	highscore.update();
-	
-	console.log(game.activeDesk);
 	
 	gameDesk.resetDesk(game.activeDesk);
 	gameDesk.repaint();

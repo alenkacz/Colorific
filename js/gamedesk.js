@@ -130,6 +130,17 @@ GameDesk.prototype.handleTileClick = function(row,side) {
 	}
 };
 
+GameDesk.prototype.handleTileHover = function(row,side) {
+	var color = this.desk[row][side].color;
+	
+	if(gameDesk.isValidTileClick(row,side,color)) {
+		gameDesk.setHoverTagOnNeighbors(row,side,color);
+	
+		//if(debug) logDeskStatus();
+		gameDesk.repaint();
+	}
+};
+
 GameDesk.prototype.handleClick = function(e) {
 	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
 		var side = gameDesk.getTilePosition(e.clientX);
@@ -137,6 +148,41 @@ GameDesk.prototype.handleClick = function(e) {
 		
 		gameDesk.handleTileClick(row,side);
 	}
+};
+
+GameDesk.prototype.handleHover = function(e) {
+	gameDesk.clearHover();
+	if(gameDesk.isInsideDesk(e.clientX, e.clientY)) {
+		var side = gameDesk.getTilePosition(e.clientX);
+		var row = gameDesk.getTilePositionY(e.clientY);
+
+		gameDesk.handleTileHover(row,side);
+	}
+};
+
+GameDesk.prototype.clearHover = function() {
+	for(var i = 0; i < this.deskSize; i++) {
+		for(var j = 0; j < this.deskSize; j++) {
+			this.desk[i][j].hover = false;
+		}
+	}
+};
+
+GameDesk.prototype.setHoverTagOnNeighbors = function(row,side,color) {
+	if(this.desk[row][side].color == color && !this.desk[row][side].hover) {
+		// matches!
+		gameDesk.setHoverTag(row,side);
+		
+		// explore neighbors
+		if(side > 0) gameDesk.setHoverTagOnNeighbors(row,side-1,color); //left
+		if(side < (this.deskSize-1)) gameDesk.setHoverTagOnNeighbors(row,side+1,color); //right
+		if(row > 0) gameDesk.setHoverTagOnNeighbors(row-1,side,color); //top
+		if(row < (this.deskSize-1)) gameDesk.setHoverTagOnNeighbors(row+1,side,color); //bottom
+	}
+};
+
+GameDesk.prototype.setHoverTag = function(row,side) {
+	this.desk[row][side].hover = true;
 };
 
 /**

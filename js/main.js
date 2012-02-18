@@ -73,10 +73,20 @@ function initImages() {
 	yellowImg = new Image();
 	redImg = new Image();
 	
-	blueImg.src = 'img/blue-full.png';
-	greenImg.src = 'img/yellow-empty.png';
-	yellowImg.src = 'img/red-empty.png';
-	redImg.src = 'img/blue-empty.png';
+	blueImgActive = new Image();
+	greenImgActive = new Image();
+	yellowImgActive = new Image();
+	redImgActive = new Image();
+	
+	blueImg.src = 'img/blueImg.png';
+	greenImg.src = 'img/yellowImg.png';
+	yellowImg.src = 'img/redImg.png';
+	redImg.src = 'img/greenImg.png';
+	
+	blueImgActive.src = 'img/blueImgActive.png';
+	greenImgActive.src = 'img/yellowImgActive.png';
+	yellowImgActive.src = 'img/redImgActive.png';
+	redImgActive.src = 'img/greenImgActive.png';
 	
 	blueImg.onload = function() {
 		imgLoaderCallback();
@@ -88,6 +98,19 @@ function initImages() {
 		imgLoaderCallback();
 	};
 	redImg.onload = function() {
+		imgLoaderCallback();
+	};
+	
+	blueImgActive.onload = function() {
+		imgLoaderCallback();
+	};
+	greenImgActive.onload = function() {
+		imgLoaderCallback();
+	};
+	yellowImgActive.onload = function() {
+		imgLoaderCallback();
+	};
+	redImgActive.onload = function() {
 		imgLoaderCallback();
 	};
 }
@@ -107,19 +130,36 @@ function Rectangle(x,y, tileSize) {
 	this.tileSize = tileSize;
 	this.color = "#000";
 	this.visible = true;
+	this.hover = false;
 }
 
 Rectangle.prototype.draw = function() {
 	var ctx = canvas.getContext('2d'); 
 	
 	if(this.color == "#e62e2e") {
-		ctx.drawImage(blueImg, this.x,this.y);
+		if(this.hover) {
+			ctx.drawImage(blueImgActive, this.x,this.y);
+		} else {
+			ctx.drawImage(blueImg, this.x,this.y);
+		}
 	} else if(this.color == "#2a9e13") {
-		ctx.drawImage(greenImg, this.x,this.y);
+		if(this.hover) {
+			ctx.drawImage(greenImgActive, this.x,this.y);
+		} else {
+			ctx.drawImage(greenImg, this.x,this.y);
+		}
 	} else if(this.color == "#1122db") {
-		ctx.drawImage(yellowImg, this.x,this.y);
+		if(this.hover) {
+			ctx.drawImage(yellowImgActive, this.x,this.y);
+		} else {
+			ctx.drawImage(yellowImg, this.x,this.y);
+		}
 	} else {
-		ctx.drawImage(redImg, this.x,this.y);
+		if(this.hover) {
+			ctx.drawImage(redImgActive, this.x,this.y);
+		} else {
+			ctx.drawImage(redImg, this.x,this.y);
+		}
 	}
 };
 
