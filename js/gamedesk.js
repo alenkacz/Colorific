@@ -134,8 +134,6 @@ GameDesk.prototype.handleClick = function(e) {
 		var side = gameDesk.getTilePosition(e.clientX);
 		var row = gameDesk.getTilePositionY(e.clientY);
 		
-		console.log(row);
-		
 		gameDesk.handleTileClick(row,side);
 	}
 };

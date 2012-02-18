@@ -1,25 +1,35 @@
-@font-face { font-family: MarkerFelt; src: url('../font/markerfeltnormal.ttf'); } 
+@font-face { 
+	font-family:Weston; src: url('../font/westonfree.otf');
+} 
 
 body {
-	background:url("../img/bg.gif");
+	background:url("../img/bg.png");
 }
 
 #main-surface {
-	background: rgba(255, 255, 255, 0.55);
-	-webkit-border-radius: 15px;
-	-webkit-box-shadow: 3px 3px 3px rgba(122,122,122,0.3);
+	
 }
 
 #left-panel {
+	padding-top:40px;
 	position:absolute;
-	left:510px;
+	left:621px;
 	top:70px;
+	width:265px;
 }
 
 #timer {
-	color:red;
-	font-size:30px;
-	font-family: MarkerFelt; 
+	color:white;
+	font-size:60px;
+	font-family: Weston; 
+	text-align:center;
+	display:block;
+}
+
+#timer-img {
+	display:block;
+	margin:auto;
+	margin-bottom:15px;
 }
 
 button {
@@ -51,6 +61,11 @@ button {
 }
 
 #start-new-game {
+	height:110px;
+	background:url("../img/arrows.png") no-repeat;
+	background-position:right; 
+	padding-top:45px;
+	padding-right:116px;
 	top:200px;
 	left:200px;
 	font-size:30px;
@@ -68,6 +83,11 @@ button {
 	font-family: MarkerFelt; 
 }
 
+#win {
+	left:30px;
+	font-size:25px;
+}
+
 #highscore {
 	text-align:right;
 	padding-right:150px;
@@ -75,14 +95,18 @@ button {
 }
 
 #container {
-	width:600px;
+	padding:18px 0 0 25px;
+	margin:70px 0 0 72px;
+	width:806px;
+	background:url("../img/game-bg.png") no-repeat;
 }
 
-h1 {
-	width:252px;
-	height:68px;
-	text-indent:-10000px;
-	display:block;
-	background:url("../img/logo.png") no-repeat;
-	margin-left:30px;
+#logo {
+	text-indent:-5000px;
+	position:absolute;
+	left:32px;
+	top:230px;
+	width:48px;
+	height:138px;
+	background:url("../img/logo-small.png") no-repeat;
 }

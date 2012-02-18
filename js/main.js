@@ -43,10 +43,10 @@ function initImages() {
 	yellowImg = new Image();
 	redImg = new Image();
 	
-	blueImg.src = 'img/blue.png';
-	greenImg.src = 'img/green.png';
-	yellowImg.src = 'img/yellow.png';
-	redImg.src = 'img/red.png';
+	blueImg.src = 'img/blue-full.png';
+	greenImg.src = 'img/yellow-empty.png';
+	yellowImg.src = 'img/red-empty.png';
+	redImg.src = 'img/blue-empty.png';
 	
 	blueImg.onload = function() {
 		imgLoaderCallback();
