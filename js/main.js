@@ -31,9 +31,39 @@ $(document).ready(function() {
 	gameDesk = new GameDesk();
 	
 	highscore.update();
+	setupSlider();
 	
 	game = new Game(gameDesk);
 });
+
+function setupSlider() {
+	$(document).ready(function() {
+		$("#slider-handle").slider({
+			value:50,
+			min:0,
+			max:100,
+			step:50,
+			change: function( event, ui ) {
+				sizeChanged($( "#slider-handle" ).slider( "value" ));
+			},
+		});
+	});
+}
+
+function sizeChanged(val) {
+	$(".slider-item").removeClass("active");
+	
+	if(val == 0) {
+		game.activeDesk = "s";
+		$(".slider-item.s").addClass("active");
+	} else if(val == 50) {
+		game.activeDesk = "m";
+		$(".slider-item.m").addClass("active");
+	} else {
+		game.activeDesk = "l";
+		$(".slider-item.l").addClass("active");
+	}
+}
 
 /** IMAGES **/
 

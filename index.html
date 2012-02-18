@@ -20,19 +20,6 @@
 <link rel="stylesheet" href="css/jquery-ui-1.8.17.custom.css" />
 </head>
 <body>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#slider-handle").slider({
-				value:0,
-				min:0,
-				max:100,
-				step:50,
-				slide: function( event, ui ) {
-					// TODO
-				}
-			});
-		});
-	</script>
 	<div id="container">
 		<div id="logo">Colorific</div>
 		<canvas id="main-surface" width="450" height="450"></canvas>
@@ -43,17 +30,18 @@
 			<img src="img/timer.png" alt="timer" id="timer-img" />
 			<span id="timer">0:00</span><br />
 			<button id="restart-button">Restart</button><br />
+			<span class="weston">OR CHOOSE ANOTHER LEVEL</span>
 			<div id="slider">
 				<div id="slider-handle"></div>
-				<div class="slider-item s active">S</div>
-				<div class="slider-item m">M</div>
+				<div class="slider-item s">S</div>
+				<div class="slider-item m active">M</div>
 				<div class="slider-item l">L</div>
 			</div>
 			<!-- <button id="s" class="s-button">S</button><br />
 			<button id="m" class="m-button">M</button><br />
 			<button id="xl" class="l-button">L</button><br /><br /> -->
 		</div>
-		<div id="highscore">
+		<div id="highscore" class="weston">
 			wins percentage: <span id="wins-loses"></span><br />
 		</div>
 	</div>

@@ -89,9 +89,7 @@ button {
 }
 
 #highscore {
-	text-align:right;
-	padding-right:150px;
-	font-family: MarkerFelt;
+	font-size:10px;
 }
 
 #container {
@@ -150,12 +148,12 @@ button {
 
 .slider-item.m {
 	top:30px;
-	left:100px;
+	left:97px;
 }
 
 .slider-item.l {
 	top:30px;
-	right:0px;
+	right:-2px;
 }
 
 .slider-item.active {
@@ -169,4 +167,12 @@ button {
 	top:4px;
 	left:10px;
 	width:186px;
+}
+
+.weston {
+	display:block;
+	text-align:center;
+	color:#fff;
+	font-family: Weston;
+	font-size:10px;
 }

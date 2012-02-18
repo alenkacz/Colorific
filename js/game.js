@@ -1,6 +1,7 @@
 function Game(gameDesk) {
 	this.time = 0;
 	this.defaultDesk = "m";
+	this.activeDesk = "m";
 }
 
 /**
@@ -14,10 +15,7 @@ Game.prototype.start = function() {
 	timer.start();
 	
 	$("#main-surface").click(game.handleClick);
-	//$("#restart-button").click(game.restart);
-	$("#s").click(game.small);
-	$("#m").click(game.medium);
-	$("#xl").click(game.big);
+	$("#restart-button").click(game.restart);
 };
 
 Game.prototype.handleClick = function(e) {
@@ -46,7 +44,7 @@ Game.prototype.checkEndOfGame = function() {
 	}
 };
 
-Game.prototype.restart = function(size) {
+Game.prototype.restart = function() {
 	$("#start-new-game").css("display","none");
 	$("#win").css("display","none");
 	$("#lose").css("display","none");
@@ -55,7 +53,9 @@ Game.prototype.restart = function(size) {
 	settings = new GameSettings();
 	highscore.update();
 	
-	gameDesk.resetDesk(size);
+	console.log(game.activeDesk);
+	
+	gameDesk.resetDesk(game.activeDesk);
 	gameDesk.repaint();
 };
 
