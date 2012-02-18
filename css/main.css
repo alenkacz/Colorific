@@ -135,6 +135,7 @@ button {
 	font-family: Weston; 
 	font-weight:bold;
 	padding:12px 0 0 7px;
+	cursor:pointer;
 }
 
 .slider-item.s {

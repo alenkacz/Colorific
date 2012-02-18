@@ -37,17 +37,38 @@ $(document).ready(function() {
 });
 
 function setupSlider() {
-	$(document).ready(function() {
-		$("#slider-handle").slider({
-			value:50,
-			min:0,
-			max:100,
-			step:50,
-			change: function( event, ui ) {
-				sizeChanged($( "#slider-handle" ).slider( "value" ));
-			},
-		});
+
+	$("#slider-handle").slider({
+		value:50,
+		min:0,
+		max:100,
+		step:50,
+		change: function( event, ui ) {
+			sizeChanged($( "#slider-handle" ).slider( "value" ));
+		},
 	});
+	
+	$(".slider-item").click(function(){
+		var classes = $(this).attr("class").split(" ");
+		for(var i = 0; i < classes.length; i++) {
+			if(classes[i].length == 1) {
+				gamedeskSizeItemClicked(classes[i]);
+			}
+		}
+	});
+}
+
+function gamedeskSizeItemClicked(val) {
+	if(val == "s") {
+		$("#slider-handle").slider("value",0);
+		sizeChanged(0);
+	} else if(val == "m") {
+		$("#slider-handle").slider("value",50);
+		sizeChanged(50);
+	} else {
+		$("#slider-handle").slider("value",100);
+		sizeChanged(100);
+	}
 }
 
 function sizeChanged(val) {
