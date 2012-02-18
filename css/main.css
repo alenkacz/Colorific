@@ -110,3 +110,63 @@ button {
 	height:138px;
 	background:url("../img/logo-small.png") no-repeat;
 }
+
+#restart-button {
+	background:url("../img/restart-btn.png") no-repeat;
+	border:none;
+	width:170px;
+	height:33px;
+	text-indent:-5000px;
+	cursor:pointer;
+	display:block;
+	margin:auto;
+}
+
+#slider {
+	display:block;
+	background:url("../img/slider.png") no-repeat;
+	width:222px;
+	height:50px;
+	margin:auto;
+	position:relative;
+	margin-top:15px;
+}
+
+.slider-item {
+	position:absolute;
+	background:url("../img/slider-nonactive.png") no-repeat;
+	width:27px;
+	height:31px;
+	color:#d33469;
+	font-family: Weston; 
+	font-weight:bold;
+	padding:12px 0 0 7px;
+}
+
+.slider-item.s {
+	top:30px;
+	left:4px;
+}
+
+.slider-item.m {
+	top:30px;
+	left:100px;
+}
+
+.slider-item.l {
+	top:30px;
+	right:0px;
+}
+
+.slider-item.active {
+	background:url("../img/slider-active.png") no-repeat;
+	color:#aa2753;
+	top:25px;
+}
+
+#slider-handle {
+	position:relative;
+	top:4px;
+	left:10px;
+	width:186px;
+}

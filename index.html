@@ -5,6 +5,7 @@
 <title>Colorific</title>
 
 <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
 
 <script type="text/javascript" src="js/main.js"></script> 
 <script type="text/javascript" src="js/debug-helper.js"></script> 
@@ -16,8 +17,22 @@
 <script type="text/javascript" src="js/game.js"></script> 
 
 <link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/jquery-ui-1.8.17.custom.css" />
 </head>
 <body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#slider-handle").slider({
+				value:0,
+				min:0,
+				max:100,
+				step:50,
+				slide: function( event, ui ) {
+					// TODO
+				}
+			});
+		});
+	</script>
 	<div id="container">
 		<div id="logo">Colorific</div>
 		<canvas id="main-surface" width="450" height="450"></canvas>
@@ -27,10 +42,16 @@
 		<div id="left-panel">
 			<img src="img/timer.png" alt="timer" id="timer-img" />
 			<span id="timer">0:00</span><br />
-			<!-- <button id="restart-button">Restart</button><br /> -->
-			<button id="s" class="s-button">S</button><br />
+			<button id="restart-button">Restart</button><br />
+			<div id="slider">
+				<div id="slider-handle"></div>
+				<div class="slider-item s active">S</div>
+				<div class="slider-item m">M</div>
+				<div class="slider-item l">L</div>
+			</div>
+			<!-- <button id="s" class="s-button">S</button><br />
 			<button id="m" class="m-button">M</button><br />
-			<button id="xl" class="l-button">L</button><br /><br />
+			<button id="xl" class="l-button">L</button><br /><br /> -->
 		</div>
 		<div id="highscore">
 			wins percentage: <span id="wins-loses"></span><br />
