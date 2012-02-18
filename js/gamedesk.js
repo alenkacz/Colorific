@@ -5,7 +5,8 @@ function GameDesk() {
 	this.spaceSize = 2;
 	this.deskSize = 15;
 	this.startPos = 10;
-	this.topMargin = 100;
+	this.topMargin = 80;
+	this.leftMargin = 100;
 	
 	this.posX = 0;
 	this.posY = 0;
@@ -77,11 +78,11 @@ GameDesk.prototype.repaint = function() {
  * Determines whether the given x,y position is inside the gamedesk
  */
 GameDesk.prototype.isInsideDesk = function(x,y) {
-	if(x < this.startPos || y < (this.startPos + this.topMargin)) {
+	if(x < (this.startPos + this.leftMargin) || y < (this.startPos + this.topMargin)) {
 		return false;
 	}
 	var deskSize = this.startPos + this.deskSize*(this.tileSize+this.spaceSize);
-	if((x < deskSize) && (y < (deskSize + this.topMargin))) {
+	if((x < (deskSize + this.leftMargin)) && (y < (deskSize + this.topMargin))) {
 		return true;
 	}
 	
@@ -94,7 +95,7 @@ GameDesk.prototype.isInsideDesk = function(x,y) {
  * @returns {Number} position of the tile
  */
 GameDesk.prototype.getTilePosition = function(x) {
-	var pos = x - this.startPos -15;
+	var pos = x - this.startPos - this.leftMargin -15;
 	return parseInt(pos / (this.tileSize + this.spaceSize/2));
 };
 

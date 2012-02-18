@@ -38,14 +38,12 @@ Game.prototype.checkEndOfGame = function() {
 		} else {
 			$("#lose").css("display","block");
 		}
-		$("#start-new-game").css("display","block");
 		// save time
 		// show time and update score
 	}
 };
 
 Game.prototype.restart = function() {
-	$("#start-new-game").css("display","none");
 	$("#win").css("display","none");
 	$("#lose").css("display","none");
 	
